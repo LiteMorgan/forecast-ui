@@ -1,7 +1,7 @@
 import React     from 'react'
 import PropTypes from 'prop-types'
 
-import CityList from './../../data/city.list.json'
+//import CityList from './../../data/city.list.json'
 
 
 export default class Search extends Component {
