@@ -70,10 +70,11 @@ class App extends Component {
 
 
   fetchForecast = () => {
+    const apiKey   = '&appid=a72cb96622b9bb789425193273dd2361'
     const location = `q=${this.state.city},${this.state.countryCode}`
-    const apiKey  = '&appid=a72cb96622b9bb789425193273dd2361'
+    const units    = '&units=metric'
 
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?${location}${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?${location}${units}${apiKey}`)
       .then(res => res.json())
       .then(res => {
         this.setState({
