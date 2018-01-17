@@ -1,17 +1,26 @@
 {
-  "name": "weather-ui",
+  "name": "forecast-ui",
   "version": "0.1.0",
-  "homepage": "https://getignited.github.io/weather-ui/",
+  "homepage": "https://getignited.github.io/forecast-ui/",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.5",
     "gh-pages": "^1.1.0",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
     "react-scripts": "1.0.17"
   },
+  "devDependencies": {
+    "node-sass-chokidar": "^0.0.3",
+    "npm-run-all": "^4.1.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm-run-all -p watch-css start-js",
+    "build": "npm-run-all build-css build-js",
+    "start-js": "react-scripts start",
+    "build-js": "react-scripts build",
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
