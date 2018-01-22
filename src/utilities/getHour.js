@@ -6,7 +6,6 @@
  */
  
 export default function getHour(date, format = 24) {
-  console.log(date)
   const time = date.split(' ')
   const hour = time[1].split(':')
 
