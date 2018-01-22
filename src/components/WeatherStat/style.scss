@@ -1,0 +1,36 @@
+@import "styles/_variables.scss";
+
+.weather-stat {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(50% - 10px);
+  margin-bottom: 10px;
+  font-size: $font-size-xs;
+  z-index: 10;
+
+  @media screen and (min-width: $screen-sm) {
+    font-size: $font-size-sm;
+  }
+
+  @media screen and (min-width: $screen-md) {
+    font-size: $font-size-base;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+  }
+
+  & svg {
+    display: none;
+
+    @media screen and (min-width: $screen-sm) {
+      display: block;
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;  
+    }
+  }
+}

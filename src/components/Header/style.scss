@@ -1,0 +1,177 @@
+@import "styles/_variables.scss";
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  width: 100%;
+  height: $size-height-header;
+  background-color: $bg-light-focus;
+  border-bottom: 1px solid rgba($off-black, .2);
+  z-index: 99;
+  box-sizing: border-box;
+
+  .time-day & {
+    background-color: $bg-light-focus;
+  }  
+
+  .time-night & {
+    background-color: $bg-dark-focus;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: $size-height-header;
+    padding: 10px 20px;
+    box-sizing: border-box;
+  }
+}
+
+
+.nav {
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: calc(100% - 40px);
+  max-width: $screen-base;
+  height: 100%;
+  padding: $spacing-md;
+  background-color: $bg-light-focus;
+  box-sizing: border-box;
+  transition: transform .2s ease-out;
+  transform: translateX(-#{$screen-base});
+  z-index: 101;
+
+  .time-day & {
+    background-color: $bg-light-focus;
+  }  
+
+  .time-night & {
+    background-color: $bg-dark-focus;
+  }
+
+  .nav-open & {
+    transform: translateX(0);
+  }
+
+  &__button {
+    display: block;
+    width: 30px;
+    height: 30px;
+    color: $smoke;
+    cursor: pointer;
+    transition: color .1s ease-in-out;
+
+    .time-day & {
+      color: $blue-alt;
+
+      &:hover {
+        color: $blue;
+      }
+    }  
+
+    .time-night & {
+      color: $purple;
+    }
+  }
+
+
+  &__section {
+    align-self: flex-start;
+  }
+
+
+  &__heading {
+    display: block;
+    margin-bottom: $spacing-xs;
+    font-size: $font-size-sm;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+
+  &__desc {
+    display: block;
+    margin-bottom: $spacing-base;
+    font-size: $font-size-xs;
+    line-height: 1.5;
+    opacity: .8;
+  }
+
+
+  &__radio {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0 -#{$spacing-sm};
+    padding: $spacing-xs;
+    background-color: $off-black;
+    border-radius: 60px;
+    box-sizing: content-box;
+
+    .time-day & { background-color: $smoke; }  
+    .time-night & { background-color: $bg-dark; }
+
+    &__item {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      padding: $spacing-xs 0;
+      background-color: transparent;
+      text-align: center;
+      border-radius: 50px;
+      user-select: none;
+
+      &--active {
+        background-color: $orange;
+        .time-day & {
+          color: $white;
+          background-color: $blue-alt;
+        }  
+        .time-night & {
+          background-color: $purple;
+        }
+      }
+    }
+
+    &__input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &__input + label {
+      flex: 1;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+  }
+
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba($black, .8);
+    opacity: 0;
+    z-index: 100;
+    pointer-events: none;
+    transition: opacity .3s ease-out;
+
+    .nav-open & {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+

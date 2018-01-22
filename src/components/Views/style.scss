@@ -1,0 +1,97 @@
+@import "styles/_variables.scss";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin-top: $size-height-header;
+
+  @media screen and (min-width: $screen-lg) { 
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
+  &__main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 0 2 auto;
+    padding: $spacing-lg $spacing-md;
+    height: calc(100vh / 1.62);
+    min-height: 340px;
+    overflow: hidden;
+    box-sizing: border-box;
+
+    .time-day & {
+      background: linear-gradient($bg-day-sky, $bg-day-sky-alt);
+    }
+
+    .time-night & {
+      background: linear-gradient($bg-night-sky, $bg-night-sky-alt); 
+    }
+
+    &__display-bg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      min-width: 500px;
+      height: auto;
+      z-index: 0;
+      pointer-events: none;
+
+      @media screen and (min-width: $screen-md) {
+        width: 100%;
+      }
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      position: fixed;
+      flex: 0 1 auto;
+      width: calc(100% / 1.62);
+      height: calc(100vh - #{$size-height-header});
+    }
+  }
+
+  &__side {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
+
+    @media screen and (min-width: $screen-sm-l) and (max-width: $screen-md-max) {
+      flex-direction: row;
+      flex-wrap: nowrap;
+    }
+
+    @media screen and (min-width: $screen-lg) {
+      flex: 1 1 auto;
+      margin-left: calc(100% / 1.62);
+    }
+
+    &__panel {
+      flex: 1;
+      width: 100%;
+      padding: 0 $spacing-sm;
+      padding-top: $spacing-md;
+      padding-bottom: $spacing-lg;
+      box-sizing: border-box;
+
+      .time-day &:nth-child(odd)   { background-color: $bg-light-alt; }
+      .time-night &:nth-child(odd) { background-color: $bg-dark-alt; }
+
+      @media screen and (min-width: $screen-sm) {
+        padding-right: $spacing-md;
+        padding-left: $spacing-md;
+      }
+
+      @media screen and (min-width: $screen-sm-l) and (max-width: $screen-sm-max) {
+        display: block;
+        flex: 2 0;
+
+        &--days {
+          flex: 3 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+.forecast {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  font-size: 1rem;
+  box-sizing: border-box;
+
+  &--mini {
+    flex: 0 1;
+    flex-flow: column;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 0;
+    padding: 0;
+    font-size: .8rem;
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  &__time {
+    flex: 3;
+  }
+
+  &__icon {
+    flex: auto;
+    width: 32px;
+
+    & svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .forecast--mini & {
+      & svg {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+
+  &__temp {
+    flex: 1;
+    font-weight: 500;
+    text-align: right;
+  }
+}

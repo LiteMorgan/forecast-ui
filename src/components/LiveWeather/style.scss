@@ -1,0 +1,52 @@
+@import "styles/_variables.scss";
+
+.forecast {
+  
+  &__now {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    @media screen and (min-width: $screen-md) {
+      font-size: 20px;
+    }
+  }
+
+  &__stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    @media screen and (min-width: $screen-md) {
+      font-size: 20px;
+    }
+  }
+}
+
+
+.live {
+  &__temp {
+    margin-right: 20px;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-mid;
+    z-index: 10;
+  }
+
+  &__details {
+    z-index: 10;
+  }
+
+  &__condition {
+    font-weight: 300;
+    opacity: 0.8;
+
+  }
+
+  &__minmax {
+    font-size: $font-size-md;
+    font-weight: $font-weight-base;
+
+    & span {
+    }
+  }
+}
