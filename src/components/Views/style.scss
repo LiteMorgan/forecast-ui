@@ -30,6 +30,10 @@
       background: linear-gradient($bg-night-sky, $bg-night-sky-alt); 
     }
 
+    @media screen and (min-width: $screen-sm-l) {
+      min-width: 460px;
+    }
+
     &__display-bg {
       position: absolute;
       top: 0;
