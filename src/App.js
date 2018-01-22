@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component }   from 'react'
+import classNames             from 'classnames'
+import Header                 from './components/Header'
+import { ViewMain, ViewSide } from './components/Views'
 
-//import Search from './components/Search'
+import { fetchWeather, weatherIcon } from './utilities'
+
+import './App.css'
 
 class App extends Component {
 
@@ -10,113 +13,119 @@ class App extends Component {
     super(props)
 
     this.state = {
-      city:           null,
-      countryCode:    null,
-      forecast:       null,
+      daytime:        true,
+      forecast_ready: false,
       lastUpdated:    null,
-      updateForecast: false,
+      location:       {
+        city:         'Hoddesdon',
+        country_code: 'uk',
+        country_name: 'United Kingdom',
+      },
+      tempUnit:        'metric',
+      timeSinceUpdate: null,
+      updateForecast:  false,
     }
   }
 
   componentDidMount() {
-    // - On app start, request location (or use current, if I can?)
-    // - Save to local storage
-    // - Check if any weather data has been pulled recently
-    //   - Check if local storage contains saved weather data
-    //   - Compare new date to a date in local storage to see if 10 minutes have passed
-
     const currentDate = Date.now()
     const lastUpdated = localStorage.getItem('lastUpdated')
     const timeToCheck = 10 * 60000  // minutes
     const sinceLastUpdate = currentDate - lastUpdated
     const getNewForecast = sinceLastUpdate > timeToCheck
-    console.log(sinceLastUpdate, timeToCheck, getNewForecast)
 
     this.setState({
-      lastUpdated: new Date(lastUpdated / 1).toString(),
-      updateForecast: getNewForecast
+      lastUpdated:    new Date(lastUpdated / 1).toString(),
+      tempUnit:       localStorage.getItem('settingTempUnit') || 'metric',
+      updateForecast: getNewForecast,
     }, () => {
-      fetch('https://freegeoip.net/json/')
-        .then(res => res.json())
-        .then(res => {
-          this.checkLocation(res)
-        })
-    })
-  }
 
-
-  checkLocation = location => {
-    const city            = location.city
-    const countryCode     = location.country_code.toLowerCase()
-    const currentLocation = `${city},${countryCode}`
-    const lastLocation    = localStorage.getItem('location')
-
-    this.setState({ city, countryCode }, () => {
-      if (currentLocation !== lastLocation) {
-        console.log('different location!')
-        this.fetchForecast()
-        return
-      } 
-
-      console.log('same location!')
       if (this.state.updateForecast) {
-        this.fetchForecast()
+        const locationStr      = `${this.state.location.city},${this.state.location.country_code}`
+        const fetchNewWeather  = fetchWeather('weather', locationStr, this.state.tempUnit)
+        const fetchNewForecast = fetchWeather('forecast', locationStr, this.state.tempUnit)
+
+        // Make all API Requests and save to state
+        Promise.all([fetchNewWeather, fetchNewForecast])
+          .then(val => {
+            this.setState({
+              daytime:        val[0].weather[0].icon.includes('d') ? true : false,
+              weather_now:    val[0],
+              weather_5day:   val[1],
+              updateForecast: false,
+              forecast_ready: true,
+            })
+
+            this.storeForecast(val)
+          })
+
         return
       }
-      
-      this.setState({ forecast: JSON.parse(localStorage.getItem('forecast')) })
-    })
-  }
 
-
-  fetchForecast = () => {
-    const apiKey   = '&appid=a72cb96622b9bb789425193273dd2361'
-    const location = `q=${this.state.city},${this.state.countryCode}`
-    const units    = '&units=metric'
-
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?${location}${units}${apiKey}`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          forecast:       res,
-          updateForecast: false,
-        })
-        this.storeForecast(res)
+      const localForecast = JSON.parse(localStorage.getItem('forecast'))
+      this.setState({
+        daytime:        localForecast[0].weather[0].icon.includes('d') ? true : false,
+        weather_now:    localForecast[0],
+        weather_5day:   localForecast[1],
+        forecast_ready: true,
       })
+    })
   }
 
 
   storeForecast = data => {
     const lastUpdated = Date.now()
-
-    this.setState({ lastUpdated: new Date(Date.now()).toString(), })
-
+    
+    this.setState({ lastUpdated: new Date(lastUpdated).toString(), })
     localStorage.setItem('forecast', JSON.stringify(data))
     localStorage.setItem('lastUpdated', lastUpdated)
-    localStorage.setItem('location', `${this.state.city},${this.state.countryCode}`)
-    console.log(`Forecast updated! Now showing the weather for ${this.state.city}`)
+    localStorage.setItem('location', `${this.state.location.city},${this.state.location.country_code}`)
   }
 
+
+  handleTempChange = e => {
+    this.setState({ tempUnit: e.target.value })
+    localStorage.setItem('settingTempUnit', e.target.value)
+  }
 
 
   render() {
+    const containerClasses = classNames('container', {
+      'time-day':   this.state.daytime,
+      'time-night': !this.state.daytime,
+    })
+
+
+    if (this.state.forecast_ready) {
+      return (
+        <div className={containerClasses}>
+          <Header
+            lastUpdated={this.state.lastUpdated}
+            tempUnit={this.state.tempUnit}
+            handleTempChange={this.handleTempChange}
+          />
+          <main className="content">
+            <ViewMain
+              location={this.state.location}
+              weather={this.state.weather_now}
+            />
+            <ViewSide
+              forecast={this.state.weather_5day}
+            />
+          </main>
+        </div>
+      )
+    }
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        
-        <p>
-          Current location: <code>{this.state.city}</code>
-        </p>
-        <p>
-          Last updated: <code>{this.state.lastUpdated}</code>
-        </p>
+      <div className={containerClasses}>
+        <div className="loading">
+          {weatherIcon('01d', 'clear') }
+          <span>Fetching the weather...</span>
+        </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
