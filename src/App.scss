@@ -1,0 +1,92 @@
+@import "styles/_variables.scss";
+
+.container {
+  position: static;
+  display: block;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  color: $font-color-default;
+  font-family: Rubik, sans-serif;
+  font-size: 16px;
+
+  &.time-day  {
+    background-color: $bg-light;
+    color: $font-color-default;
+  }
+
+  &.time-night {
+    background-color: $bg-dark;
+    color: $font-color-light;
+  }
+}
+
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 110;
+
+  & svg {
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+  }
+
+  & span {
+    font-size: $heading-size-base;
+  }
+
+  .time-day & {
+    background-color: $bg-light;
+    color: $font-color-default;
+  }
+
+  .time-night & {
+    background-color: $bg-dark;
+    color: $font-color-light;
+  }
+}
+
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5 {
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  font-size: $heading-size-sm;
+  font-weight: $font-weight-base;
+  opacity: 0.6;
+  margin-bottom: $spacing-md;
+}
+
+h4 {
+  font-size: $heading-size-base;
+  font-weight: $font-weight-mid;
+  margin-bottom: $spacing-md;
+}
+
+strong {
+  font-weight: $font-weight-mid;
+}
+
+
+hr {
+  margin: $spacing-md 0;
+  border: 1px solid rgba($black,0.2);
+}
