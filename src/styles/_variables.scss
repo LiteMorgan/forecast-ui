@@ -1,0 +1,69 @@
+// Colors
+// ------------------
+$black:     #000000;
+$off-black: #1d1d1d;
+$dark:      #3b3b3b;
+$smoke:     #cfd5e6;
+$white:     #ffffff;
+
+$bg-dark:          #1c2638;
+$bg-dark-alt:      lighten($bg-dark, 2%);
+$bg-dark-focus:    lighten($bg-dark, 6%);
+$bg-light:         #f9fafc;
+$bg-light-alt:     darken($bg-light, 2%);
+$bg-light-focus:   darken($bg-light, 5%);
+$bg-day-sky:       #87c8ee;
+$bg-day-sky-alt:   #e1f5ff;
+$bg-night-sky:     #080d40;
+$bg-night-sky-alt: #2e1d51;
+
+$blue:       #99c4f1;
+$blue-alt:   #4285ca;
+$cream:      #fff5d0;
+$orange:     #ffb121;
+$orange-alt: #fff2be;
+$purple:     #cb96ff;
+$purple-alt: $purple;
+
+
+// Text
+// ------------------
+$font-color-default: $dark;
+$font-color-light:   $white;
+
+$font-weight-base: 400;
+$font-weight-mid:  500;
+
+$heading-size-base: 1.5em;
+$heading-size-sm:   0.875em;
+$heading-size-lg:   5em;
+
+$font-size-base: 1em;     // 16px
+$font-size-xs:   0.75em;  // 12px
+$font-size-sm:   0.875em; // 14px
+$font-size-md:   1.5em;   // 24px
+$font-size-lg:   5em;     // 80px
+
+
+// Screensizes
+// ------------------
+$screen-base: 320px;
+$screen-sm:   414px;
+$screen-sm-l: 640px;
+$screen-md:   768px;
+$screen-lg:   1024px;
+
+$screen-base-max: $screen-sm - 1;
+$screen-sm-max: $screen-md - 1;
+$screen-md-max: $screen-lg - 1;
+
+
+// Sizes and Spacing
+// ------------------
+$size-height-header: 60px;
+
+$spacing-base: 20px;
+$spacing-xs:   $spacing-base / 4;    // 5px
+$spacing-sm:   $spacing-base / 2;    // 10px
+$spacing-md:   $spacing-base * 1.25; // 25px
+$spacing-lg:   $spacing-base * 2;    // 40px
