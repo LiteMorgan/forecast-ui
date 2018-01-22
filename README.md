@@ -92,4 +92,8 @@ Finally, more options within the settings, such as a 24/12 hour display toggle, 
 
 An error state would also have been beneficial, for when data becomes unavailable (and subsequently, fallback data has to be used).
 
+From a design/development perspective, I think it would have benefitted me greatly to make use of existing icon sets, as opposed to designing my own. I chose to do this however to give the site its own unique personality - plus I was able to customise some of the colour attributes for weather icons.
+
+I would also make use of a CSS framework like Bootstrap, to save on the construction of many components, and repetitive CSS throughout the app. Utility flexbox classes would also have been greatly beneficial.
+
 
