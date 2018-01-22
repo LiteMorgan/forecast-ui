@@ -17,7 +17,7 @@ class App extends Component {
       forecast_ready: false,
       lastUpdated:    null,
       location:       {
-        city:         'Hoddesdon',
+        city:         'London',
         country_code: 'uk',
         country_name: 'United Kingdom',
       },
