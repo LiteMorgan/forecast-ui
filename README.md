@@ -8,7 +8,7 @@ Technical test integrating the [OpenWeatherMap API](http://openweathermap.org/ap
 
 - [Getting started](#getting-started)
 - [Changing location](#changing-location)
-- [Creating ForecastUI](#creating-forecastUI)
+- [Creating ForecastUI](#creating-forecastui)
   - [Early choices](#early-choices)
   - [Designing](#designing)
   - [Building](#building)
